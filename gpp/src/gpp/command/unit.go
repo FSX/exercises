@@ -1,6 +1,6 @@
 package command
 
-import "fmt"
+// import "fmt"
 
 type Unit struct {
 	Name string
@@ -13,5 +13,5 @@ func (u *Unit) Position() (int, int) {
 
 func (u *Unit) MoveTo(x, y int) {
 	u.x, u.y = x, y
-	fmt.Printf("%s moved to (%d,%d)\n", u.Name, x, y)
+	// fmt.Printf("%s moved to (%d,%d)\n", u.Name, x, y)
 }

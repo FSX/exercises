@@ -65,16 +65,19 @@ func (c *CommandStack) Redo() error {
 		return ErrRedo
 	}
 
-	c.current.command.Execute()
 	c.current = c.current.next
+	c.current.command.Execute()
 
 	return nil
 }
 
-func (c *CommandStack) Count() int {
+func (c *CommandStack) Len() int {
 	i := 0
 
 	for n := c.current; n != nil; n = n.prev {
+		i++
+	}
+	for n := c.current.next; n != nil; n = n.next {
 		i++
 	}
 
