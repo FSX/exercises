@@ -2,7 +2,7 @@ Repository with exercises. Currently working through [Game Programming Patterns]
 
 Use [gb][2] to run the tests, which contain all examples. Do this:
 
-	cd gpp
+	gb build
 	gb test
 
 
