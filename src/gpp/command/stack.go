@@ -14,75 +14,76 @@ func (n *noopCommand) Undo()          {}
 func (n *noopCommand) String() string { return "noop()" }
 
 type CommandStack struct {
-	size       int
-	head, tail *commandNode
+	max           int
+	length        int
+	head, current *commandNode
 }
 
-func NewCommandStack(size int) *CommandStack {
+func NewCommandStack(max int) *CommandStack {
 	node := &commandNode{command: &noopCommand{}}
-	return &CommandStack{size, node, node}
+	return &CommandStack{max, 0, node, node}
 }
 
 func (c *CommandStack) Do(command Command) {
 	node := &commandNode{command: command}
 
-	c.tail.next = node
-	node.prev = c.tail
-	c.tail = node
+	// Append node at the end.
+	c.current.next = node
+	node.prev = c.current
+	c.current = node
 
-	// Limit list of actions to c.size.
-	i := 1
-	n := c.tail
+	// Count nodes.
+	newLength := 1
+	for n := c.current; n != nil; n = n.prev {
+		newLength++
+	}
 
-	for n != nil {
-		if _, ok := n.command.(*noopCommand); ok {
-			break
-		} else if i == c.size {
-			n.prev = c.head
-			n.next = nil
-			break
-		}
-
-		n = n.prev
-		i++
+	// Truncate everything in front of the new node.
+	if newLength > c.max {
+		c.head.next = c.head.next.next
+		c.head.next.prev = c.head
+		c.length = newLength - 1
+	} else {
+		c.length = newLength
 	}
 
 	command.Execute()
 }
 
 func (c *CommandStack) Undo() error {
-	if c.tail.prev == nil {
+	if c.current.prev == nil {
 		return ErrUndo
 	}
 
-	c.tail.command.Undo()
-	c.tail = c.tail.prev
+	c.current.command.Undo()
+	c.current = c.current.prev
 
 	return nil
 }
 
 func (c *CommandStack) Redo() error {
-	if c.tail.next == nil {
+	if c.current.next == nil {
 		return ErrRedo
 	}
 
-	c.tail = c.tail.next
-	c.tail.command.Execute()
+	c.current = c.current.next
+	c.current.command.Execute()
 
 	return nil
 }
 
 func (c *CommandStack) Len() int {
-	i := 0
+	return c.length
+	// i := 0
 
-	for n := c.tail; n != nil; n = n.prev {
-		i++
-	}
-	for n := c.tail.next; n != nil; n = n.next {
-		i++
-	}
+	// for n := c.current; n != nil; n = n.prev {
+	// 	i++
+	// }
+	// for n := c.current.next; n != nil; n = n.next {
+	// 	i++
+	// }
 
-	return i - 1 // noopCommand shouldn't be included in the count.
+	// return i - 1 // noopCommand shouldn't be included in the count.
 }
 
 type commandNode struct {

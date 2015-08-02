@@ -31,7 +31,6 @@ func TestStackLimit(t *testing.T) {
 	}
 
 	if l := s.Len(); l != 10 {
-		t.Fail()
 		t.Errorf("expected 10, but is %d", l)
 	}
 }
@@ -118,8 +117,8 @@ func TestNewAction(t *testing.T) {
 		s.Undo()
 	}
 
-	if s.Len() != 10 {
-		t.Fail()
+	if l := s.Len(); l != 10 {
+		t.Errorf("expected 10, but is %d", l)
 	}
 
 	// Execute a new command. Every command that's newer than the current
@@ -127,7 +126,16 @@ func TestNewAction(t *testing.T) {
 	s.Do(NewMoveUnitCommand(u, 110, 110))
 
 	// This means the new length is 6.
-	if s.Len() != 6 {
-		t.Fail()
+	if l := s.Len(); l != 6 {
+		t.Errorf("expected 6, but is %d", l)
+	}
+}
+
+func BenchmarkDo(b *testing.B) {
+	u := &Unit{"Test-01", 0, 0}
+	s := NewCommandStack(10)
+
+	for i := 0; i < b.N; i++ {
+		s.Do(NewMoveUnitCommand(u, i*10, i*10))
 	}
 }
