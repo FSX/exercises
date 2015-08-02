@@ -74,16 +74,6 @@ func (c *CommandStack) Redo() error {
 
 func (c *CommandStack) Len() int {
 	return c.length
-	// i := 0
-
-	// for n := c.current; n != nil; n = n.prev {
-	// 	i++
-	// }
-	// for n := c.current.next; n != nil; n = n.next {
-	// 	i++
-	// }
-
-	// return i - 1 // noopCommand shouldn't be included in the count.
 }
 
 type commandNode struct {
