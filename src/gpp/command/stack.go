@@ -38,7 +38,7 @@ func (c *CommandStack) Do(command Command) {
 		newLength++
 	}
 
-	// Truncate everything in front of the new node.
+	// Drop the last node from the list.
 	if newLength > c.max {
 		c.head.next = c.head.next.next
 		c.head.next.prev = c.head
