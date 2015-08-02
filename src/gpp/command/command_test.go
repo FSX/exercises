@@ -30,8 +30,9 @@ func TestStackLimit(t *testing.T) {
 		s.Do(NewMoveUnitCommand(u, i*10, i*10))
 	}
 
-	if s.Len() != 10 {
+	if l := s.Len(); l != 10 {
 		t.Fail()
+		t.Errorf("expected 10, but is %d", l)
 	}
 }
 

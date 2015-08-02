@@ -12,6 +12,12 @@
 			"repository": "https://github.com/mgutz/ansi",
 			"revision": "452f5f5396543168418a299cd963697ac742b56e",
 			"branch": "master"
+		},
+		{
+			"importpath": "github.com/pkg/profile",
+			"repository": "https://github.com/pkg/profile",
+			"revision": "c795610ec6e479e5795f7852db65ea15073674a6",
+			"branch": "master"
 		}
 	]
 }

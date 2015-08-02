@@ -14,8 +14,8 @@ func (n *noopCommand) Undo()          {}
 func (n *noopCommand) String() string { return "noop()" }
 
 type CommandStack struct {
-	size           int
-	first, current *commandNode
+	size       int
+	head, tail *commandNode
 }
 
 func NewCommandStack(size int) *CommandStack {
@@ -26,19 +26,20 @@ func NewCommandStack(size int) *CommandStack {
 func (c *CommandStack) Do(command Command) {
 	node := &commandNode{command: command}
 
-	c.current.next = node
-	node.prev = c.current
-	c.current = node
+	c.tail.next = node
+	node.prev = c.tail
+	c.tail = node
 
 	// Limit list of actions to c.size.
 	i := 1
-	n := c.current
+	n := c.tail
 
 	for n != nil {
 		if _, ok := n.command.(*noopCommand); ok {
 			break
 		} else if i == c.size {
-			n.prev = c.first
+			n.prev = c.head
+			n.next = nil
 			break
 		}
 
@@ -50,23 +51,23 @@ func (c *CommandStack) Do(command Command) {
 }
 
 func (c *CommandStack) Undo() error {
-	if c.current.prev == nil {
+	if c.tail.prev == nil {
 		return ErrUndo
 	}
 
-	c.current.command.Undo()
-	c.current = c.current.prev
+	c.tail.command.Undo()
+	c.tail = c.tail.prev
 
 	return nil
 }
 
 func (c *CommandStack) Redo() error {
-	if c.current.next == nil {
+	if c.tail.next == nil {
 		return ErrRedo
 	}
 
-	c.current = c.current.next
-	c.current.command.Execute()
+	c.tail = c.tail.next
+	c.tail.command.Execute()
 
 	return nil
 }
@@ -74,10 +75,10 @@ func (c *CommandStack) Redo() error {
 func (c *CommandStack) Len() int {
 	i := 0
 
-	for n := c.current; n != nil; n = n.prev {
+	for n := c.tail; n != nil; n = n.prev {
 		i++
 	}
-	for n := c.current.next; n != nil; n = n.next {
+	for n := c.tail.next; n != nil; n = n.next {
 		i++
 	}
 
