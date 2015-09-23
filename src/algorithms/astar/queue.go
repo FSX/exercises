@@ -1,7 +1,7 @@
 package astar
 
 type element struct {
-	v          *Node // Graph nodes only.
+	v          interface{}
 	next, prev *element
 }
 
@@ -14,31 +14,31 @@ func (q *Queue) Empty() bool {
 	return q.head == nil
 }
 
-func (q *Queue) Put(n *Node) {
+func (q *Queue) Put(v interface{}) {
 	if q.head != nil {
-		e := &element{v: n}
+		e := &element{v: v}
 		q.tail.next = e
 		e.prev = q.tail
 		q.tail = e
 	} else {
-		q.head = &element{v: n}
+		q.head = &element{v: v}
 		q.tail = q.head
 		q.head.next = q.tail
 		q.tail.prev = q.head
 	}
 }
 
-func (q *Queue) Get() *Node {
+func (q *Queue) Get() interface{} {
 	if q.head == nil {
 		return nil
 	}
 
-	n := q.head.v
+	v := q.head.v
 	q.head = q.head.next
 
 	if q.head != nil {
 		q.head.prev = nil
 	}
 
-	return n
+	return v
 }
