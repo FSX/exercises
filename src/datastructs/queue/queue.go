@@ -1,4 +1,4 @@
-package astar
+package queue
 
 type element struct {
 	v          interface{}
