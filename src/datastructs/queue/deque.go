@@ -79,16 +79,29 @@ func (q *Deque) Get() interface{} {
 	}
 
 	v := q.leftblock.data[q.leftindex]
+	q.leftblock.data[q.leftindex] = nil
 	q.leftindex++
 	q.count--
 
 	if q.leftindex == BLOCKLEN {
 		if q.count > 0 {
-			prev := q.leftblock.next
+			if q.leftblock == q.rightblock {
+				panic("leftblock == rightblock")
+			}
+
+			newLeftblock := q.leftblock.next
+			newLeftblock.prev = nil
+			q.leftblock.next = nil
 			q.leftblock = nil
-			q.leftblock = prev
+			q.leftblock = newLeftblock
 			q.leftindex = 0
 		} else {
+			if q.leftblock != q.rightblock {
+				panic("leftblock != rightblock")
+			} else if q.leftindex != q.rightindex+1 {
+				panic("leftindex != rightindex+1")
+			}
+
 			q.leftindex = CENTER + 1
 			q.rightindex = CENTER
 		}
