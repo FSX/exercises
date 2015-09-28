@@ -18,6 +18,27 @@ type qblock struct {
 // - Put = deque_append
 // - Get = deque_popleft
 //
+// TODO:
+//
+// - Add maximum length to deque to prevent integer overflow:
+//   https://hg.python.org/cpython/file/tip/Modules/_collectionsmodule.c#l113
+// - Maintain a list of free blocks:
+//   https://hg.python.org/cpython/file/tip/Modules/_collectionsmodule.c#l119
+// - Implement deque_pop, pop/get item from the right side of the queue:
+//   https://hg.python.org/cpython/file/tip/Modules/_collectionsmodule.c#l198
+// - Add maximum length specified by the user:
+//   https://hg.python.org/cpython/file/tip/Modules/_collectionsmodule.c#l272
+// - Implement deque_appendleft, append item to the left side of the queue:
+//   https://hg.python.org/cpython/file/tip/Modules/_collectionsmodule.c#l328
+// - Implement deque_extend, append a slice of items to the right side of the queue:
+//   https://hg.python.org/cpython/file/tip/Modules/_collectionsmodule.c#l370
+// - Implement deque_extend, append a slice of items to the left side of the queue:
+//   https://hg.python.org/cpython/file/tip/Modules/_collectionsmodule.c#l441
+// - Implement deque_clear, remove all elements from queue:
+//   https://hg.python.org/cpython/file/tip/Modules/_collectionsmodule.c#l589
+// - Create shallow copy of queue.
+// - Get length of queue.
+//
 // [1]: https://hg.python.org/cpython/file/tip/Modules/_collectionsmodule.c
 type Deque struct {
 	leftblock, rightblock        *qblock
