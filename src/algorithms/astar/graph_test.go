@@ -2,6 +2,7 @@ package astar
 
 import (
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -51,25 +52,11 @@ func TestGraph(t *testing.T) {
 }
 
 func joinNodeIds(nodes []*Node, sep string) string {
-	if len(nodes) == 0 {
-		return ""
-	}
-	if len(nodes) == 1 {
-		return nodes[0].Id
-	}
+	a := make([]string, len(nodes))
 
-	n := len(sep) * (len(nodes) - 1)
 	for i := 0; i < len(nodes); i++ {
-		n += len(nodes[i].Id)
+		a[i] = nodes[i].Id
 	}
 
-	b := make([]byte, n)
-	bp := copy(b, nodes[0].Id)
-
-	for _, node := range nodes[1:] {
-		bp += copy(b[bp:], sep)
-		bp += copy(b[bp:], node.Id)
-	}
-
-	return string(b)
+	return strings.Join(a, sep)
 }
