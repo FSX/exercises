@@ -11,7 +11,7 @@ type neighborTest struct {
 	Neighbors []*Node
 }
 
-func TestGraph(t *testing.T) {
+func TestDirectedGraph(t *testing.T) {
 	a := &Node{"A"}
 	b := &Node{"B"}
 	c := &Node{"C"}
@@ -20,7 +20,7 @@ func TestGraph(t *testing.T) {
 	f := &Node{"F"}
 	g := &Node{"G"}
 
-	graph := NewGrap(map[string][]*Node{
+	graph := NewDirectedGraph(map[string][]*Node{
 		"A": {b, c},
 		"B": {d},
 		"C": {f, b, g},

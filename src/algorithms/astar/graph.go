@@ -1,21 +1,24 @@
 package astar
 
-// Node is a multi-functional node!
+type Graph interface {
+	Neighbors(n *Node) []*Node
+}
+
 type Node struct {
 	Id string
 	// X, Y int
 }
 
-type Graph struct {
+type DirectedGraph struct {
 	edges map[string][]*Node
 }
 
-func NewGrap(edges map[string][]*Node) *Graph {
-	return &Graph{edges}
+func NewDirectedGraph(edges map[string][]*Node) *DirectedGraph {
+	return &DirectedGraph{edges}
 }
 
-func (g *Graph) Neighbors(n *Node) []*Node {
-	if v, ok := g.edges[n.Id]; ok {
+func (d *DirectedGraph) Neighbors(n *Node) []*Node {
+	if v, ok := d.edges[n.Id]; ok {
 		return v
 	} else {
 		return []*Node{}
