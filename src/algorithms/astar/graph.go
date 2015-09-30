@@ -10,8 +10,8 @@ type Graph struct {
 	edges map[string][]*Node
 }
 
-func NewGrap() *Graph {
-	return &Graph{edges: make(map[string][]*Node)}
+func NewGrap(edges map[string][]*Node) *Graph {
+	return &Graph{edges}
 }
 
 func (g *Graph) Neighbors(n *Node) []*Node {
