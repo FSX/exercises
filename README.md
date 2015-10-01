@@ -15,3 +15,12 @@ Directories
 - `/src/a`, algorithms.
 - `/src/d`, data structures.
 - `/src/p`, design patterns.
+
+
+Sources
+-------
+
+- [Game Programming Patterns](http://gameprogrammingpatterns.com/contents.html)
+- [Quicksort](https://en.wikipedia.org/wiki/Quicksort)
+- [Realistic terrain in 130 lines](http://www.playfuljs.com/realistic-terrain-in-130-lines/)
+- [collections.deque (Python)](https://hg.python.org/cpython/file/tip/Modules/_collectionsmodule.c)
