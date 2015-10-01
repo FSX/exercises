@@ -45,8 +45,8 @@ func TestDirectedGraph(t *testing.T) {
 		if !reflect.DeepEqual(result, s.Neighbors) {
 			t.Errorf(
 				"{%s} != {%s}",
-				joinNodeIds(s.Neighbors, ", "),
-				joinNodeIds(result, ", "))
+				joinNodeIds(result, ", "),
+				joinNodeIds(s.Neighbors, ", "))
 		}
 	}
 }
