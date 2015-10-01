@@ -2,8 +2,7 @@ package main
 
 import (
 	"github.com/pkg/profile"
-
-	"gpp/command"
+	"p/command"
 )
 
 func main() {

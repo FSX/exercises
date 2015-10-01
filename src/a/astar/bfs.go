@@ -1,6 +1,6 @@
 package astar
 
-import "datastructs/queue"
+import "d/queue"
 
 func BreadthFirstSearch(graph Graph, start, goal *Node) map[*Node]*Node {
 	frontier := queue.NewDeque()

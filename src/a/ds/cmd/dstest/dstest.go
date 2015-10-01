@@ -5,7 +5,7 @@ import (
 	"image/png"
 	"os"
 
-	"algorithms/ds"
+	"a/ds"
 )
 
 func main() {

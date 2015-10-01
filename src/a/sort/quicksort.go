@@ -1,4 +1,4 @@
-package sorting
+package sort
 
 // Quicksort as described in:
 // https://en.wikipedia.org/wiki/Quicksort#Hoare_partition_scheme

@@ -1,8 +1,6 @@
 package command
 
-import (
-	"fmt"
-)
+import "fmt"
 
 type Command interface {
 	Execute()
