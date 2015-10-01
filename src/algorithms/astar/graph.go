@@ -10,15 +10,15 @@ type Node struct {
 }
 
 type DirectedGraph struct {
-	edges map[string][]*Node
+	edges map[*Node][]*Node
 }
 
-func NewDirectedGraph(edges map[string][]*Node) *DirectedGraph {
+func NewDirectedGraph(edges map[*Node][]*Node) *DirectedGraph {
 	return &DirectedGraph{edges}
 }
 
 func (d *DirectedGraph) Neighbors(n *Node) []*Node {
-	if v, ok := d.edges[n.Id]; ok {
+	if v, ok := d.edges[n]; ok {
 		return v
 	} else {
 		return []*Node{}

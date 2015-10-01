@@ -20,14 +20,14 @@ func TestDirectedGraph(t *testing.T) {
 	f := &Node{"F"}
 	g := &Node{"G"}
 
-	graph := NewDirectedGraph(map[string][]*Node{
-		"A": {b, c},
-		"B": {d},
-		"C": {f, b, g},
-		"D": {e, f},
-		"E": {c},
-		"F": {g},
-		"G": {a},
+	graph := NewDirectedGraph(map[*Node][]*Node{
+		a: {b, c},
+		b: {d},
+		c: {f, b, g},
+		d: {e, f},
+		e: {c},
+		f: {g},
+		g: {a},
 	})
 
 	tests := []neighborTest{

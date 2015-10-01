@@ -57,6 +57,10 @@ func NewDeque() *Deque {
 	return q
 }
 
+func (d *Deque) Empty() bool {
+	return d.count == 0
+}
+
 // Put puts a value on the right side of the queue.
 func (q *Deque) Put(v interface{}) {
 	if q.rightindex == BLOCKLEN-1 {
