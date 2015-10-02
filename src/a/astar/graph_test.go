@@ -6,19 +6,29 @@ import (
 	"testing"
 )
 
+func joinNodeIds(nodes []*Node, sep string) string {
+	a := make([]string, len(nodes))
+
+	for i := 0; i < len(nodes); i++ {
+		a[i] = nodes[i].Id
+	}
+
+	return strings.Join(a, sep)
+}
+
 type neighborTest struct {
 	Root      *Node
 	Neighbors []*Node
 }
 
 func TestDirectedGraph(t *testing.T) {
-	a := &Node{"A"}
-	b := &Node{"B"}
-	c := &Node{"C"}
-	d := &Node{"D"}
-	e := &Node{"E"}
-	f := &Node{"F"}
-	g := &Node{"G"}
+	a := &Node{Id: "A"}
+	b := &Node{Id: "B"}
+	c := &Node{Id: "C"}
+	d := &Node{Id: "D"}
+	e := &Node{Id: "E"}
+	f := &Node{Id: "F"}
+	g := &Node{Id: "G"}
 
 	graph := NewDirectedGraph(map[*Node][]*Node{
 		a: {b, c},
@@ -49,14 +59,4 @@ func TestDirectedGraph(t *testing.T) {
 				joinNodeIds(s.Neighbors, ", "))
 		}
 	}
-}
-
-func joinNodeIds(nodes []*Node, sep string) string {
-	a := make([]string, len(nodes))
-
-	for i := 0; i < len(nodes); i++ {
-		a[i] = nodes[i].Id
-	}
-
-	return strings.Join(a, sep)
 }

@@ -13,20 +13,15 @@ func TracePath(nodeMap map[*Node]*Node, goal *Node) []*Node {
 		}
 	}
 
-	return reversePath(path)
+	return reverseNodes(path)
 }
 
-func reversePath(path []*Node) []*Node {
-	a := make([]*Node, len(path))
-	l := len(path) - 1
-	m := (l + 1) / 2
+func reverseNodes(path []*Node) []*Node {
+	newPath := make([]*Node, len(path))
 
-	if l%2 == 0 {
-		a[m] = path[m]
-	}
-	for i := 0; i < m; i++ {
-		a[i], a[l-i] = path[l-i], path[i]
+	for a, b := 0, len(path)-1; a < len(path); a, b = a+1, b-1 {
+		newPath[a] = path[b]
 	}
 
-	return a
+	return newPath
 }
