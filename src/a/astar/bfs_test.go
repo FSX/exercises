@@ -52,17 +52,27 @@ func TestBreadthFirstSearchSquareGrid(t *testing.T) {
 	}
 
 	neighbors := BreadthFirstSearch(graph, start, goal)
-	// t.Log(neighbors)
 	result := TracePath(neighbors, goal)
-	t.Log(joinNodeIds(result, " -> "))
-	// expected := []*Node{a, b, c, d, f}
 
-	// if !reflect.DeepEqual(result, expected) {
-	// 	t.Errorf(
-	// 		"{%s} != {%s}",
-	// 		joinNodeIds(result, ", "),
-	// 		joinNodeIds(expected, ", "))
-	// }
+	// Make expected path.
+	coords := [][]int{
+		{10, 2}, {10, 3}, {11, 3}, {11, 4}, {12, 4}, {12, 5}, {13, 5},
+		{13, 6}, {14, 6}, {14, 7}, {15, 7}, {16, 7}, {16, 8}, {16, 9},
+		{16, 10}, {16, 11}, {16, 12},
+	}
+	expected := make([]*Node, len(coords))
+	for i, c := range coords {
+		if node, ok := graph.GetNode(c[0], c[1]); ok {
+			expected[i] = node
+		} else {
+			t.Error("cannot get goal node")
+		}
+	}
 
-	t.Logf("\n%s", graph)
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf(
+			"{%s} != {%s}",
+			joinNodeIds(result, ", "),
+			joinNodeIds(expected, ", "))
+	}
 }
