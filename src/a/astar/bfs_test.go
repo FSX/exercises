@@ -65,7 +65,7 @@ func TestBreadthFirstSearchSquareGrid(t *testing.T) {
 		if node, ok := graph.GetNode(c[0], c[1]); ok {
 			expected[i] = node
 		} else {
-			t.Error("cannot get goal node")
+			t.Error("cannot get node")
 		}
 	}
 
